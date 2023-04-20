@@ -10,7 +10,16 @@ debug = DebugToolbarExtension(app)
 
 @app.get("/")
 def homepage():
+    """Return homepage."""
 
-    html = render_template("base.html")
-    return html
+    prompts = silly_story.prompts
 
+    return render_template("questions.html", prompts=prompts)
+
+@app.get("/results")
+def result_madlib():
+    """Return the story page."""
+
+    story = silly_story.get_result_text(request.args)
+
+    return render_template("results.html", story=story)
